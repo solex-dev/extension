@@ -1,0 +1,106 @@
+{
+  "name": "solex",
+  "displayName": "Solex",
+  "description": "rustlings for solana",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "type": "commonjs",
+  "license": "MIT",
+  "publisher": "Sahil Pabale (sahilpabale)",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:**/solex.toml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "solex-sidebar-view",
+          "title": "Solex",
+          "icon": "assets/activity-bar.svg"
+        }
+      ]
+    },
+    "views": {
+      "solex-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "solex-sidebar",
+          "name": "Solex",
+          "icon": "assets/activity-bar.svg",
+          "contextualTitle": "Solex"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "solex.run",
+        "title": "Run Exercise",
+        "category": "Solex"
+      },
+      {
+        "command": "solex.openExercise",
+        "title": "Open Exercise",
+        "category": "Solex"
+      },
+      {
+        "command": "solex.openHome",
+        "title": "Open Home",
+        "category": "Solex"
+      },
+      {
+        "command": "solex.refresh",
+        "title": "refresh",
+        "category": "Solex"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "rollup -c --bundleConfigAsCjs && webpack --mode production",
+    "watch": "concurrently \"rollup -c --bundleConfigAsCjs -w\" \"webpack --watch\"",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-typescript": "10.0.1",
+    "@tsconfig/svelte": "^5.0.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.79.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "@vscode/test-electron": "^2.3.2",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.41.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "rollup": "^3.26.0",
+    "rollup-plugin-css-only": "^4.3.0",
+    "rollup-plugin-svelte": "^7.1.6",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^4.0.1",
+    "svelte-check": "^3.4.4",
+    "svelte-preprocess": "^5.0.4",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "toml": "^3.0.0"
+  }
+}
