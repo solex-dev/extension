@@ -28,6 +28,15 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           vscode.window.showInformationMessage(data.value);
           break;
         }
+        case "ask": {
+          if (!data.value) {
+            return;
+          }
+          if (data.value === "askIfInSolex") {
+            await vscode.commands.executeCommand("solex.checkIfInSolex");
+          }
+          break;
+        }
         case "onError": {
           if (!data.value) {
             return;
@@ -73,6 +82,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">
         <link href="${styleMainUri}" rel="stylesheet">
+        <script nonce="${nonce}">
+          const tsvscode = acquireVsCodeApi();
+        </script>
 			</head>
       <body>
 				<script nonce="${nonce}" src="${scriptUri}"></script>

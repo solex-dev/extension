@@ -25,26 +25,32 @@ export async function activate(context: vscode.ExtensionContext) {
     }),
   );
 
-  // context.subscriptions.push(
-  //   vscode.commands.registerCommand("solex.openHome", () => {
-  //     HomePanel.createOrShow(context.extensionUri);
-  //   }),
-  // );
+  context.subscriptions.push(
+    vscode.commands.registerCommand("solex.checkIfInSolex", () => {
+      if (vscode.workspace.workspaceFolders) {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
 
-  if (vscode.workspace.workspaceFolders) {
-    const workspaceFolders = vscode.workspace.workspaceFolders;
+        for (const folder of workspaceFolders) {
+          const filePath = path.join(folder.uri.fsPath, specificFile);
+          if (fs.existsSync(filePath)) {
+            console.log("is in solex");
 
-    for (const folder of workspaceFolders) {
-      const filePath = path.join(folder.uri.fsPath, specificFile);
-      if (fs.existsSync(filePath)) {
-        console.log(
-          `Specific file '${specificFile}' found in workspace folder '${folder.name}'.`,
-        );
-
-        break;
+            setTimeout(() => {
+              sidebarProvider._view?.webview.postMessage({
+                command: "isInSolex",
+                data: {
+                  isInSolex: true,
+                },
+              });
+            }, 500);
+            break;
+          }
+        }
       }
-    }
-  }
+    }),
+  );
+
+  await vscode.commands.executeCommand("solex.checkIfInSolex");
 }
 
 export function deactivate() {}

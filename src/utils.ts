@@ -24,13 +24,13 @@ const searchFile: any = (directory: string, fileName: string) => {
   return null; // File not found
 };
 
-const filePath = searchFile(homedir(), "solex.toml");
+// const filePath = searchFile(homedir(), "solex.toml");
 
-if (filePath) {
-  console.log(`File found at: ${filePath}`);
-} else {
-  console.log(`File not found.`);
-}
+// if (filePath) {
+//   console.log(`File found at: ${filePath}`);
+// } else {
+//   console.log(`File not found.`);
+// }
 
 export function getNonce() {
   let text = "";
