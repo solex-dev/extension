@@ -28,12 +28,29 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           vscode.window.showInformationMessage(data.value);
           break;
         }
+        case "open-url": {
+          if (!data.value) {
+            return;
+          }
+          vscode.env.openExternal(vscode.Uri.parse(data.value));
+          break;
+        }
+        case "open-exercise": {
+          if (!data.value) {
+            return;
+          }
+          vscode.commands.executeCommand("solex.openExercise", data.value);
+          break;
+        }
         case "ask": {
           if (!data.value) {
             return;
           }
           if (data.value === "askIfInSolex") {
             await vscode.commands.executeCommand("solex.checkIfInSolex");
+          }
+          if (data.value === "getExercises") {
+            await vscode.commands.executeCommand("solex.getExercises");
           }
           break;
         }
